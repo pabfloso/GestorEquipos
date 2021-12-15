@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <springProperty scope="context" name="application_name" source="spring.application.name"/>
+
+    <property name="LOGS" value="./logs/" />
+
+
+    <appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="RollingFile"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/${application_name}/${application_name}.log</file>
+        <encoder
+                class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily and when the file reaches 20 MegaBytes -->
+            <fileNamePattern>${LOGS}/${application_name}/archived/${application_name}-%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>20MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="ConsoleAppender" />
+        <appender-ref ref="RollingFile" />
+    </root>
+
+
+        <logger name="com.pruebatecnica" level="trace" additivity="false">
+        <appender-ref ref="ConsoleAppender" />
+        <appender-ref ref="RollingFile" />
+    </logger>
+
+
+
+    <logger name="java.util.logging" level="off">
+        <appender-ref ref="ConsoleAppender" />
+        <appender-ref ref="RollingFile" />
+    </logger>
+
+</configuration>
