@@ -21,10 +21,10 @@ public interface TeamMapper {
     void updateModel(TeamDto teamDto, @MappingTarget Team team);
 
     default byte[] map(String string) throws UnsupportedEncodingException {
-            return string.getBytes(StandardCharsets.UTF_8);
+            return Base64.getDecoder().decode(string);
     }
 
-    default String map(byte[] string) throws UnsupportedEncodingException {
-        return new String(Base64.getEncoder().encode(string));
+    default String map(byte[] bytes) throws UnsupportedEncodingException {
+        return Base64.getEncoder().encodeToString(bytes);
     }
 }

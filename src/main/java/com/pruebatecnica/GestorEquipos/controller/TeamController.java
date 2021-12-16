@@ -23,13 +23,11 @@ import java.util.List;
 @RequestMapping("/api")
 public class TeamController {
 
-    private final ConfigProperties configProperties;
     private final TeamServiceImpl teamService;
     private final TeamMapper teamMapper;
 
     @Autowired
-    public TeamController(ConfigProperties configProperties, TeamServiceImpl teamService, TeamMapper teamMapper) {
-        this.configProperties = configProperties;
+    public TeamController(TeamServiceImpl teamService, TeamMapper teamMapper) {
         this.teamService = teamService;
         this.teamMapper = teamMapper;
     }
@@ -68,7 +66,7 @@ public class TeamController {
     public ResponseEntity<List<TeamDto>> getAllTeams(
             @ApiParam(value = "Condicion ordenar la busqueda", type = "boolean") @RequestParam(required = false) boolean order
     ) {
-        List<TeamDto> res = new ArrayList<>();
+        List<TeamDto> res;
         if(order) {
             res = teamService.getOrderedTeams();
         } else {

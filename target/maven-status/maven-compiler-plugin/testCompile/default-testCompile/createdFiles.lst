@@ -1,1 +1,2 @@
-com\pruebatecnica\GestorEquipos\AppTest.class
+com\pruebatecnica\GestorEquipos\service\impl\TeamServiceImplTest.class
+com\pruebatecnica\GestorEquipos\controller\TeamControllerTest.class

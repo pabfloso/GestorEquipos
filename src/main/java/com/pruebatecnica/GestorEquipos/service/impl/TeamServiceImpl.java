@@ -34,8 +34,7 @@ public class TeamServiceImpl implements ITeamService {
 
 
     public Team createTeam(Team team) {
-        teamRepository.save(team);
-        return team;
+        return teamRepository.save(team);
     }
 
     public Optional<Team> getTeam(String name) {
